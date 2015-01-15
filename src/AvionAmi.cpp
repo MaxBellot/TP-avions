@@ -154,10 +154,10 @@ void AvionAmi::deplacement()
 
 void AvionAmi::nouvelleDirection()
 {
-    int Vx = 0, Vy = 0, Vz = 0; //décalage entre l'avion et sa cible sur X, Y et Z
+    int Vx = 0, Vy = 0, Vz = 0; //dÃ©calage entre l'avion et sa cible sur X, Y et Z
     for (int i=0; i<avions.size(); i++)
     {
-        if (avions[i]->getSymbole()=='E')//Les deux avions ciblent le même avion
+        if (avions[i]->getSymbole()=='E')//Les deux avions ciblent le mÃªme avion
         {
             Vx = avions[i]->getX() - x;
 			Vy = avions[i]->getY() - y;
@@ -179,7 +179,7 @@ void AvionAmi::nouvelleDirection()
     dirZ.composanteVecteur = Vz;
     dirZ.valeurDirectionActuelle = &dz;
     
-    std::vector <coupleDirection> direction; // Ce tableau nous permet de classer les composantes du vecteur afin de prioriser les ordres de déplacement
+    std::vector <coupleDirection> direction; // Ce tableau nous permet de classer les composantes du vecteur afin de prioriser les ordres de dÃ©placement
 
     if ((abs(Vx)>= abs(Vy))&&(abs(Vx)>= abs(Vz)))
     {
@@ -276,5 +276,10 @@ void AvionAmi::nouvelleDirection()
             }
             break;
         }
+
     }
-    }
+	dx = *(dirX.valeurDirectionActuelle);
+	dy = *(dirY.valeurDirectionActuelle);
+	dz = *(dirZ.valeurDirectionActuelle);
+	
+}
