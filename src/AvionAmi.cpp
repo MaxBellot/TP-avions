@@ -179,94 +179,94 @@ void AvionAmi::nouvelleDirection()
     dirZ.composanteVecteur = Vz;
     dirZ.valeurDirectionActuelle = &dz;
     
-    std::vector <coupleDirection> direction; // Ce tableau nous permet de classer les composantes du vecteur afin de prioriser les ordres de déplacement
+    std::vector  <coupleDirection*> direction; // Ce tableau nous permet de classer les composantes du vecteur afin de prioriser les ordres de déplacement
 
     if ((abs(Vx)>= abs(Vy))&&(abs(Vx)>= abs(Vz)))
     {
-        direction.push_back(dirX);
+        direction.push_back(&dirX);
         if(abs(Vy)>= abs(Vz))
         {
-            direction.push_back(dirY);
-            direction.push_back(dirZ);
+            direction.push_back(&dirY);
+            direction.push_back(&dirZ);
         }
         else
         {
-            direction.push_back(dirZ);
-            direction.push_back(dirY);
+            direction.push_back(&dirZ);
+            direction.push_back(&dirY);
         }
     }
     else if ((abs(Vy)>= abs(Vz))&&(abs(Vy)>= abs(Vx)))
     {
-        direction.push_back(dirY);
+        direction.push_back(&dirY);
         if(abs(Vx)>= abs(Vz))
         {
-            direction.push_back(dirX);
-            direction.push_back(dirZ);
+            direction.push_back(&dirX);
+            direction.push_back(&dirZ);
         }
         else
         {
-            direction.push_back(dirZ);
-            direction.push_back(dirX);
+            direction.push_back(&dirZ);
+            direction.push_back(&dirX);
         }
     }
     else 
     {
-        direction.push_back(dirZ);
+        direction.push_back(&dirZ);
         if(abs(Vx)>= abs(Vy))
         {
-            direction.push_back(dirX);
-            direction.push_back(dirY);
+            direction.push_back(&dirX);
+            direction.push_back(&dirY);
         }
         else
         {
-            direction.push_back(dirY);
-            direction.push_back(dirX);
+            direction.push_back(&dirY);
+            direction.push_back(&dirX);
         }
     }
 
-    if (direction[0].composanteVecteur>0)
+    if (direction[0]->composanteVecteur>0)
     {
-        switch(*(direction[0].valeurDirectionActuelle))
+        switch(*(direction[0]->valeurDirectionActuelle))
         {
         case -1 :
-            *(direction[0].valeurDirectionActuelle)=0;
+            *(direction[0]->valeurDirectionActuelle)=0;
             break;
         case 0 :
-            *(direction[0].valeurDirectionActuelle)=1;
+            *(direction[0]->valeurDirectionActuelle)=1;
             break;
         case 1 :
-            if (direction[1].composanteVecteur>0)
+            if (direction[1]->composanteVecteur>0)
             {
-                switch(*(direction[1].valeurDirectionActuelle))
+                switch(*(direction[1]->valeurDirectionActuelle))
                 {
                     case -1 :
-                        *(direction[1].valeurDirectionActuelle)=0;
+                        *(direction[1]->valeurDirectionActuelle)=0;
                         break;
                     case 0 :
-                        *(direction[1].valeurDirectionActuelle)=1;
+                        *(direction[1]->valeurDirectionActuelle)=1;
                         break;
                     case 1 :
-                        if (direction[2].composanteVecteur>0)
+                        if (direction[2]->composanteVecteur>0)
                         {
-                            switch(*(direction[2].valeurDirectionActuelle))
+                            switch(*(direction[2]->valeurDirectionActuelle))
                             {
                                 case -1 :
-                                    *(direction[2].valeurDirectionActuelle)=0;
+                                    *(direction[2]->valeurDirectionActuelle)=0;
                                     break;
                                 case 0 :
-                                    *(direction[2].valeurDirectionActuelle)=1;
+                                    *(direction[2]->valeurDirectionActuelle)=1;
                                     break;
                             }
                         }
-                        else if (direction[2].composanteVecteur<0)
+                        else if (direction[2]->composanteVecteur<0)
                         {
-                            switch(*(direction[2].valeurDirectionActuelle))
+                            switch(*(direction[2]->valeurDirectionActuelle))
                             {
                                 case -1 :
-                                    *(direction[2].valeurDirectionActuelle)=0;
+                                    *(direction[2]->valeurDirectionActuelle)=0;
                                     break;
                                 case 0 :
-                                    *(direction[2].valeurDirectionActuelle)=1;
+                                    *(direction[2]->valeurDirectionActuelle)=1;
                                     break;
                             }
                         }
