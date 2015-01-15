@@ -9,10 +9,15 @@ int main()
 
 {
     // Initialisation avions (pas besoin des symboles, le symmbole est inclus dans le constructeur AvionAmi et Avion Ennemi)
-    Avion* avion1 = new AvionAmi(0,0,5,0,1,0,1);  
-    Avion* avion2 = new AvionAmi(1,0,8,0,1,0,1);
-    Avion* avion3 = new AvionEnnemi(2,13,5,13,-1,0,-1);
-    Avion* avion4 = new AvionEnnemi(3,13,8,13,-1,0,-1);
+    //Avion* avion1 = new AvionAmi(0,0,5,0,1,0,1);  
+    //Avion* avion2 = new AvionAmi(1,0,8,0,1,0,1);
+    //Avion* avion3 = new AvionEnnemi(2,13,5,13,-1,0,-1);
+    //Avion* avion4 = new AvionEnnemi(3,13,8,13,-1,0,-1);
+	
+	Avion* avion1 = new AvionAmi(0,0,5,0,1,0,1);  
+    //Avion* avion2 = new AvionAmi(1,0,6,0,1,0,1);
+    Avion* avion3 = new AvionEnnemi(3,0,5,0,-1,0,-1);
+    //Avion* avion4 = new AvionEnnemi(3,0,8,13,-1,0,-1);
 
 
     // Initialisation OSG <3  <3
@@ -28,8 +33,8 @@ int main()
 /* SPACESHIPS	*/
 
 	//Loading the SPACESHIPS nodes
-	osg::ref_ptr<osg::Node> xWing (osgDB::readNodeFile("C:\\Users\\eleve\\Documents\\Visual Studio 2012\\Projects\\TPosgAvions\\TPosgAvions\\model\\StarWars\\star wars x-wing.3ds"));
-	osg::ref_ptr<osg::Node> tFighter (osgDB::readNodeFile("C:\\Users\\eleve\\Documents\\Visual Studio 2012\\Projects\\TPosgAvions\\TPosgAvions\\model\\mechant\\TF_3DS02.3ds"));
+	osg::ref_ptr<osg::Node> xWing (osgDB::readNodeFile("C:\\Users\\eleve\\Documents\\MEDEV\\TP-avions\\TP-avions\\TP-avions\\model\\StarWars\\star wars x-wing.3ds"));
+	osg::ref_ptr<osg::Node> tFighter (osgDB::readNodeFile("C:\\Users\\eleve\\Documents\\MEDEV\\TP-avions\\TP-avions\\TP-avions\\model\\mechant\\TF_3DS02.3ds"));
 
 /* Scale Matrix	*/
 
@@ -80,9 +85,27 @@ int main()
 	pat4->addChild(patTFigther.get());
 
 
+	/* Add a grid made of small cubes to visualise the game area */
+	osg::ref_ptr<osg::Geode> geGeodeGrid(new osg::Geode);
+	for(int i=0; i<14; i++)
+	{
+		for(int j=0; j<14; j++)
+		{
+			for(int k=0; k<14; k++)
+			{
+				osg::ref_ptr<osg::Box> shBox(new osg::Box(osg::Vec3f(i, j, k), 0.05, 0.05, 0.05)); // verticale droite
+				osg::ref_ptr<osg::ShapeDrawable> drBox1(new osg::ShapeDrawable(shBox.get()));
+				geGeodeGrid->addDrawable(drBox1.get());
+			}
+		}
+	}
+	
+
+
 /* SCENE GRAPH*/
 
 	// Add the geode to the scene graph root (Group)
+	root->addChild(geGeodeGrid.get());
 	root->addChild(pat1.get());
 	root->addChild(pat2.get());
 	root->addChild(pat3.get());
